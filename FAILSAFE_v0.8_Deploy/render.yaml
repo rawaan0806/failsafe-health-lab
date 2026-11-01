@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: failsafe-health-lab
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 3 --timeout 120 --access-logfile -
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"

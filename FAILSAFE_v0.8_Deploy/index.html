@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <meta name="description" content="FAILSAFE is an interactive healthcare workflow simulation prototype. Explore fictional patient journeys, stress-test queues and compare resource choices.">
+  <meta property="og:title" content="FAILSAFE — Find the failure points before patients reach them">
+  <meta property="og:description" content="An interactive healthcare workflow stress-testing prototype. Simulate. Detect. Optimize.">
+  <title>FAILSAFE — Stress-test healthcare before it happens</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/home.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
+    <div class="wrap navbar">
+      <a class="brand" href="index.html" aria-label="FAILSAFE home">
+        <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3.6 28.4 10.5v11L16 28.4 3.6 21.5v-11L16 3.6Z" stroke="currentColor" stroke-width="2"/><path d="m9 19 5-5 4 4 5-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>FAILSAFE<span class="brand-period">.</span></span>
+      </a>
+      <nav class="nav-links" id="primary-nav" aria-label="Primary navigation">
+        <a href="#mission">The problem</a><a href="#how-it-works">How it works</a><a href="#simulation">The lab</a><a href="#technology">Technology</a>
+        <a class="nav-mobile-cta" href="lab.html">Launch the demo <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="nav-right"><span class="nav-version"><span class="live-indicator"></span> INTERACTIVE PROTOTYPE</span><a class="button button-dark nav-cta" href="lab.html">Launch demo <span aria-hidden="true">↗</span></a></div>
+      <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-halo" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow"><span class="eyebrow-symbol">✳</span> A SAFER WAY TO TEST THE SYSTEM <span class="eyebrow-line"></span></div>
+          <h1 id="hero-heading">Find the failure points <em>before</em> patients reach them<span class="accent-dot">.</span></h1>
+          <p class="hero-description">Healthcare workflows can break under pressure. FAILSAFE uses synthetic patient journeys to reveal bottlenecks, test capacity, and explore better decisions — before making changes in the real world.</p>
+          <div class="hero-actions"><a class="button button-dark button-large" href="lab.html">Launch interactive demo <span class="button-arrow" aria-hidden="true">↗</span></a><a class="text-link" href="#how-it-works">Explore how it works <span aria-hidden="true">↘</span></a></div>
+          <div class="hero-footnote"><span class="halo-icon" aria-hidden="true">◎</span> 100% fictional patients <span class="foot-divider"></span> No real patient data required</div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of a simulated patient workflow with a highlighted bottleneck">
+          <div class="visual-grid"></div><div class="visual-ambient"></div>
+          <div class="visual-topline"><span class="visual-mark"><span class="pulse"></span> THE SIMULATION ENGINE</span><span class="visual-serial">PREVIEW / 01</span></div>
+          <div class="graph-art" aria-hidden="true">
+            <svg viewBox="0 0 530 350" role="img" aria-label="Illustrative workflow network"><defs><linearGradient id="lineGlow" x1="0" x2="1"><stop stop-color="#7bb59b" stop-opacity=".48"/><stop offset="1" stop-color="#d7efde" stop-opacity=".95"/></linearGradient></defs>
+              <path class="route faint" d="M80 182 C151 182 140 83 238 96 S351 124 440 79"/>
+              <path class="route faint" d="M80 182 C151 182 147 267 238 270 S347 253 440 283"/>
+              <path class="route primary" d="M80 182 C155 182 143 187 237 187 S345 187 443 187"/>
+              <circle cx="80" cy="182" r="23" class="ring"/><circle cx="80" cy="182" r="9" class="node"/>
+              <circle cx="239" cy="96" r="16" class="ring light"/><circle cx="239" cy="96" r="5" class="node dim"/>
+              <circle cx="239" cy="187" r="29" class="ring amber-ring"/><circle cx="239" cy="187" r="10" class="node amber"/>
+              <circle cx="239" cy="270" r="16" class="ring light"/><circle cx="239" cy="270" r="5" class="node dim"/>
+              <circle cx="443" cy="187" r="23" class="ring"/><circle cx="443" cy="187" r="9" class="node"/>
+              <circle cx="440" cy="79" r="8" class="endnode"/><circle cx="440" cy="283" r="8" class="endnode"/>
+              <circle r="6" class="flow-particle"><animateMotion dur="5s" repeatCount="indefinite" path="M80 182 C155 182 143 187 237 187 S345 187 443 187"/></circle>
+              <circle r="4" class="flow-particle second"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" path="M80 182 C155 182 143 187 237 187 S345 187 443 187"/></circle>
+              <text x="40" y="225" class="svg-label">ADMISSION</text><text x="196" y="238" class="svg-label amber-text">CAPACITY</text><text x="406" y="225" class="svg-label">FOLLOW-UP</text>
+            </svg>
+            <div class="graph-bubble bubble-top"><span class="bubble-dot amber-bg"></span> Bottleneck identified <span class="bubble-icon">↗</span></div>
+            <div class="graph-bubble bubble-bottom"><span class="wave-icon">≋</span> Test a better route</div>
+          </div>
+          <div class="visual-bottom"><span><span class="small-label">01 /</span> SIMULATE</span><span><span class="small-label">02 /</span> DETECT</span><span><span class="small-label">03 /</span> OPTIMIZE</span></div>
+          <div class="visual-corner-tag">Illustrative flow diagram · not clinical data</div>
+        </div>
+      </div>
+      <div class="wrap hero-bottom-rule"><span>BUILT FOR DSH HACKS V2</span><span>AI × HEALTHCARE <span aria-hidden="true">↘</span></span></div>
+    </section>
+
+    <section class="stats-band" aria-label="Prototype capabilities"><div class="wrap stat-grid">
+      <div class="stat"><strong>5</strong><div><b>Journey checkpoints</b><span>From discharge to follow-up</span></div></div>
+      <div class="stat"><strong>72</strong><div><b>Resource combinations</b><span>Up to 72 options compared</span></div></div>
+      <div class="stat"><strong>2</strong><div><b>Operational queues</b><span>Discharge and follow-up booking</span></div></div>
+      <div class="stat stat-quote"><span>Not a clinical prediction.</span><b>A transparent what-if simulation.</b></div>
+    </div></section>
+
+    <section class="section mission-section" id="mission"><div class="wrap mission-grid">
+      <div><div class="section-kicker"><span class="kicker-line"></span> 01 / WHY FAILSAFE EXISTS</div><h2>Healthcare shouldn't have to fail <span class="serif-accent">before</span> it improves.</h2></div>
+      <div class="mission-copy"><p class="lead">A patient's journey involves dozens of handoffs and decisions. A small delay or missed step can put the whole process under pressure.</p><p>What if teams could examine those weak points in a safe virtual environment first? FAILSAFE helps explore how a hypothetical care pathway behaves when demand rises, resources tighten, or patients encounter barriers.</p><div class="quote-rule"><span class="quote-star">✳</span><span>Test the workflow. Not the patient.</span></div></div>
+    </div></section>
+
+    <section class="section process-section" id="how-it-works"><div class="wrap">
+      <div class="section-kicker"><span class="kicker-line"></span> 02 / FROM QUESTIONS TO CLARITY</div>
+      <div class="process-heading"><h2>One system.<br><span class="serif-accent">Four</span> clearer steps.</h2><p>Not another dashboard of unexplained numbers. A way to experiment, see the consequences and understand the trade-offs.</p></div>
+      <div class="process-card" id="process-explorer"><div class="process-tabs" role="tablist" aria-label="Simulation process steps">
+        <button class="step-tab active" data-step="0" type="button" role="tab" aria-selected="true" aria-controls="step-panel" id="tab-0"><span class="step-count">01</span><span>Configure</span><span class="tab-arrow">↗</span></button>
+        <button class="step-tab" data-step="1" type="button" role="tab" aria-selected="false" aria-controls="step-panel" id="tab-1" tabindex="-1"><span class="step-count">02</span><span>Simulate</span><span class="tab-arrow">↗</span></button>
+        <button class="step-tab" data-step="2" type="button" role="tab" aria-selected="false" aria-controls="step-panel" id="tab-2" tabindex="-1"><span class="step-count">03</span><span>Detect</span><span class="tab-arrow">↗</span></button>
+        <button class="step-tab" data-step="3" type="button" role="tab" aria-selected="false" aria-controls="step-panel" id="tab-3" tabindex="-1"><span class="step-count">04</span><span>Optimize</span><span class="tab-arrow">↗</span></button>
+      </div><div class="process-details" role="tabpanel" id="step-panel" aria-labelledby="tab-0" tabindex="0">
+        <div class="process-copy"><div class="muted-overline" id="step-overline">STEP 01 / INPUTS</div><h3 id="step-title">Start with a scenario.</h3><p id="step-text">Choose patient volume, language or transport barriers, staffing levels and an available resource budget. Everything happens using fictional inputs.</p><div class="step-callout"><span class="callout-symbol">↗</span><span id="step-note">Editable assumptions, not hospital records.</span></div></div>
+        <div class="step-demo" aria-hidden="true"><div class="demo-heading"><span class="mini-mark">✳</span> WORKFLOW CONFIGURATION <span>01 / 04</span></div><div class="demo-lines"><div class="demo-label">PATIENT VOLUME <b id="mini-label-1">500 virtual patients</b></div><div class="progress-track"><div class="progress-bar" id="mini-bar-1"></div></div><div class="demo-label">AVAILABLE RESOURCES <b id="mini-label-2">350 credits</b></div><div class="progress-track secondary-track"><div class="progress-bar" id="mini-bar-2"></div></div></div><div class="demo-footer"><span class="check-circle">✓</span><span id="mini-status">Scenario configured</span><span class="mini-dots"><i></i><i></i><i></i><i></i></span></div></div>
+      </div></div>
+    </div></section>
+
+    <section class="section lab-section" id="simulation"><div class="wrap"><div class="section-kicker"><span class="kicker-line"></span> 03 / THE SIMULATION LAB</div>
+      <div class="lab-intro"><h2>See the system <span class="serif-accent">under pressure.</span></h2><div><p>Follow individual synthetic patients, watch queues form, compare staffing plans and replay the busiest moments of a fictional care pathway.</p><a class="text-link dark-link" href="lab.html">Open the live simulation <span aria-hidden="true">↗</span></a></div></div>
+      <div class="lab-frame"><div class="lab-frame-top"><div class="frame-dots"><i></i><i></i><i></i></div><span class="frame-address"><span class="small-shield">⬡</span> FAILSAFE / SIMULATION LAB</span><a href="lab.html" class="frame-open">Open lab ↗</a></div><div class="lab-image-wrap"><img loading="lazy" src="assets/simulation-screenshot.webp" alt="Actual FAILSAFE simulation lab: a timeline and six cards showing fictional patients arriving, waiting for discharge, receiving service, waiting for booking, receiving booking service, and finishing."></div><div class="lab-caption"><div><span class="caption-dot"></span> ACTUAL SCREENSHOT FROM OUR WORKING PROTOTYPE</div><span>Synthetic scenario · Local Python engine</span></div></div>
+    </div></section>
+
+    <section class="section tech-section" id="technology"><div class="wrap"><div class="section-kicker"><span class="kicker-line"></span> 04 / BUILT WITH INTENTION</div><div class="tech-head"><h2>Powerful enough to explore.<br><span class="serif-accent">Clear enough</span> to understand.</h2><p>A transparent simulation stack rather than a black-box claim about patient outcomes.</p></div><div class="tech-grid">
+      <article class="tech-card"><div class="feature-icon"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="5"/><circle cx="35" cy="13" r="5"/><circle cx="24" cy="36" r="5"/><path d="M17 13h13m-18 5 9 13m14-13-8 13"/></svg></div><span class="tech-number">01 /</span><h3>Synthetic patient journeys</h3><p>Explore fictional care pathways with different access needs and potential barriers.</p></article>
+      <article class="tech-card"><div class="feature-icon"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="24" width="9" height="16" rx="2"/><rect x="20" y="14" width="9" height="26" rx="2"/><rect x="35" y="6" width="9" height="34" rx="2"/><path d="M5 10h19m-6-6 6 6-6 6"/></svg></div><span class="tech-number">02 /</span><h3>Queue stress testing</h3><p>Model arrivals, simplified service times and limited staffing across two service stages.</p></article>
+      <article class="tech-card"><div class="feature-icon"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="m14 24 7 7 13-15"/><path d="M24 3v8m0 26v8M3 24h8m26 0h8"/></svg></div><span class="tech-number">03 /</span><h3>Budget-aware optimization</h3><p>Evaluate up to 72 resource combinations and inspect the trade-offs behind each recommendation.</p></article>
+    </div><div class="tech-honesty"><div class="honesty-icon">i</div><p><strong>Built for exploration, not medical decisions.</strong> FAILSAFE uses simplified, synthetic assumptions. The care-pathway and staffing models are independent, and the optimizer is an exact search algorithm — not a clinically validated AI predictor.</p></div>
+    </div></section>
+
+    <section class="closing-section"><div class="wrap closing-grid"><div class="closing-spark" aria-hidden="true">✳</div><div class="closing-copy"><div class="closing-kicker">YOUR NEXT EXPERIMENT STARTS HERE</div><h2>What if we could<br><em>prepare</em> for failure?</h2><p>Explore pressure points. Change the assumptions. See what the simulation reveals.</p><a class="button button-cream button-large" href="lab.html">Explore FAILSAFE <span aria-hidden="true">↗</span></a></div><div class="closing-symbol" aria-hidden="true"><svg viewBox="0 0 350 350" fill="none"><circle cx="175" cy="175" r="138" stroke="currentColor" stroke-opacity=".22"/><circle cx="175" cy="175" r="95" stroke="currentColor" stroke-opacity=".35"/><circle cx="175" cy="175" r="53" stroke="currentColor" stroke-opacity=".65"/><path d="m107 181 43 41 94-104" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="175" cy="175" r="166" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 12"/></svg></div></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="wrap footer-top"><div><a class="brand brand-footer" href="#top"><span class="brand-icon" aria-hidden="true">✳</span><span>FAILSAFE<span class="brand-period">.</span></span></a><p>Find the failure points before<br>patients reach them.</p></div><div class="footer-links"><div><span>EXPLORE</span><a href="#mission">The problem</a><a href="#how-it-works">How it works</a><a href="lab.html">Simulation lab</a></div><div><span>PROJECT</span><a href="#technology">Technology</a><a href="#simulation">Product preview</a><a href="lab.html">Launch demo ↗</a></div></div></div><div class="wrap footer-bottom"><span>© 2026 FAILSAFE. Built for DSH Hacks V2.</span><span>Hackathon demonstration · Synthetic data only · Not for clinical use</span><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>
