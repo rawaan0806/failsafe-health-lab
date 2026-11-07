@@ -13,6 +13,7 @@ from time import monotonic
 from urllib.parse import urlsplit
 
 from server import calculate, calculate_trace, MAX_BODY
+from outpatient import analyze as analyze_outpatient
 
 ROOT = Path(__file__).resolve().parent
 FILES = {
@@ -20,6 +21,13 @@ FILES = {
     "/index.html": ("index.html", "text/html; charset=utf-8"),
     "/lab": ("lab.html", "text/html; charset=utf-8"),
     "/lab.html": ("lab.html", "text/html; charset=utf-8"),
+    "/advanced": ("advanced.html", "text/html; charset=utf-8"),
+    "/outpatient": ("outpatient.html", "text/html; charset=utf-8"),
+    "/outpatient.html": ("outpatient.html", "text/html; charset=utf-8"),
+    "/assets/outpatient.js": ("assets/outpatient.js", "text/javascript; charset=utf-8"),
+    "/assets/outpatient.css": ("assets/outpatient.css", "text/css; charset=utf-8"),
+    "/advanced.html": ("advanced.html", "text/html; charset=utf-8"),
+    "/assets/lab.js": ("assets/lab.js", "text/javascript; charset=utf-8"),
     "/assets/styles.css": ("assets/styles.css", "text/css; charset=utf-8"),
     "/assets/home.js": ("assets/home.js", "text/javascript; charset=utf-8"),
     "/assets/favicon.svg": ("assets/favicon.svg", "image/svg+xml"),
@@ -65,14 +73,14 @@ def app(environ, start_response):
             payload = (ROOT / filename).read_bytes()
             return _response(start_response, '200 OK', payload if method == 'GET' else b'', mime)
         if path == '/health':
-            return _json(start_response, '200 OK', {'ok': True, 'version': '0.8', 'synthetic_only': True})
+            return _json(start_response, '200 OK', {'ok': True, 'version': '1.3', 'synthetic_only': True})
         if path == '/favicon.ico':
             return _response(start_response, '204 No Content', b'', 'image/x-icon')
         return _json(start_response, '404 Not Found', {'error': 'Not found'})
 
     if method != 'POST':
         return _json(start_response, '405 Method Not Allowed', {'error': 'Method not allowed'}, extra=[('Allow', 'GET, HEAD, POST')])
-    if path not in ('/api/simulate', '/api/trace'):
+    if path not in ('/api/simulate', '/api/trace', '/api/outpatient'):
         return _json(start_response, '404 Not Found', {'error': 'Not found'})
 
     # Only a JSON body from the same-origin app is needed. No CORS headers.
@@ -100,7 +108,7 @@ def app(environ, start_response):
         return _json(start_response, '503 Service Unavailable', {'error': 'Simulation engine is busy. Please try again.'}, extra=[('Retry-After', '3')])
     try:
         data = json.loads(environ['wsgi.input'].read(size))
-        result = calculate(data) if path == '/api/simulate' else calculate_trace(data)
+        result = analyze_outpatient(data) if path == '/api/outpatient' else (calculate(data) if path == '/api/simulate' else calculate_trace(data))
         return _json(start_response, '200 OK', result)
     except (ValueError, TypeError, UnicodeDecodeError) as exc:
         return _json(start_response, '400 Bad Request', {'error': str(exc)})
