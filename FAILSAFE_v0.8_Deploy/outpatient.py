@@ -254,6 +254,21 @@ def analyze(raw):
     eligible.sort(key=lambda v:(-_score(v[2]),v[1],len(v[0]),v[0]))
     best=eligible[0]
     improvement=best[2]['completed_before_close']-baseline['completed_before_close']
+    # Expose the evidence for the recommendation, not just the action names.
+    # The optimizer's ranking is (1) more completed visits, (2) less total wait,
+    # (3) lower illustrative cost. This is a what-if rule, not a clinical claim.
+    top_plans = [
+        {
+            'actions': [LABELS[k] for k in option],
+            'cost_eur': cost,
+            'completed': result['completed_before_close'],
+            'average_wait_minutes': result['average_wait_minutes'],
+        }
+        for option, cost, result in eligible[:3]
+    ]
+    reception_options=[item for item in eligible if 'receptionists' in item[0]]
+    best_reception_option = reception_options[0] if reception_options else None
+    chosen_is_reception = 'receptionists' in best[0]
     stage_candidates=[(v,k) for k,v in baseline['mean_stage_wait'].items() if v is not None]
     stage_candidates.sort(reverse=True)
     worst=stage_candidates[0][1] if stage_candidates else None
@@ -269,13 +284,32 @@ def analyze(raw):
         findings.append({'stage':'hours','title':'Visits extend beyond opening hours','detail':f"{baseline['not_completed']} of {cfg['patients']} simulated visits did not finish before closing.",'level':'moderate'})
     if not findings: findings.append({'stage':'general','title':'No major issue in this scenario','detail':'The modeled queues appear manageable under these assumptions.','level':'low'})
     return {
-        'version':'1.2','mode':'outpatient-clinic','synthetic_only':True,
+        'version':'1.4','mode':'outpatient-clinic','synthetic_only':True,
         'scenario':{k:v for k,v in cfg.items() if k!='seed'},
         'baseline':baseline,'optimized':best[2],
-        'recommendation':{'actions':[LABELS[k] for k in best[0]],'action_keys':list(best[0]),
-                          'estimated_cost_eur':best[1], 'added_completed':improvement,
-                          'explanation':('In the same synthetic patient scenario, this option scored highest on visits completed before closing and then average modeled wait. '
-                                         'This is a what-if comparison, not a real-world forecast.')},
+        'recommendation':{
+            'actions':[LABELS[k] for k in best[0]],
+            'action_keys':list(best[0]),
+            'estimated_cost_eur':best[1],
+            'added_completed':improvement,
+            'explanation':('Among the affordable options, FAILSAFE first ranks how many simulated visits finish before closing, then average modeled waiting time, then illustrative cost. This is not a clinical recommendation.'),
+            'why_selected':(
+                f'This plan completes {best[2]["completed_before_close"]} of {cfg["patients"]} simulated visits before closing, '
+                f'compared with {baseline["completed_before_close"]} under the current plan. '
+                f'The model prioritizes completed visits over reducing any single queue.'
+                if improvement > 0 else
+                f'This plan completes {best[2]["completed_before_close"]} of {cfg["patients"]} simulated visits before closing. '
+                f'With no gain in completed visits, the optimizer prefers lower modeled total waiting time and then lower assumed cost.'
+            ),
+            'objective_order':['More visits completed before closing', 'Less average total modeled waiting time', 'Lower hypothetical resource cost'],
+            'top_competing_plans':top_plans,
+            'reception_alternative':(
+                {'cost_eur':best_reception_option[1],
+                 'completed':best_reception_option[2]['completed_before_close'],
+                 'average_wait_minutes':best_reception_option[2]['average_wait_minutes']}
+                if best_reception_option and not chosen_is_reception else None
+            ),
+        },
         'findings':findings[:5], 'largest_wait_stage':worst,
         'combinations_tested':len(eligible),'total_candidate_options':len(all_opts),
         'assumptions':[

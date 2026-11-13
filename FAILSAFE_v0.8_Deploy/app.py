@@ -14,6 +14,7 @@ from urllib.parse import urlsplit
 
 from server import calculate, calculate_trace, MAX_BODY
 from outpatient import analyze as analyze_outpatient
+from report_pdf import make_report_pdf
 
 ROOT = Path(__file__).resolve().parent
 FILES = {
@@ -73,14 +74,14 @@ def app(environ, start_response):
             payload = (ROOT / filename).read_bytes()
             return _response(start_response, '200 OK', payload if method == 'GET' else b'', mime)
         if path == '/health':
-            return _json(start_response, '200 OK', {'ok': True, 'version': '1.3', 'synthetic_only': True})
+            return _json(start_response, '200 OK', {'ok': True, 'version': '1.4', 'synthetic_only': True})
         if path == '/favicon.ico':
             return _response(start_response, '204 No Content', b'', 'image/x-icon')
         return _json(start_response, '404 Not Found', {'error': 'Not found'})
 
     if method != 'POST':
         return _json(start_response, '405 Method Not Allowed', {'error': 'Method not allowed'}, extra=[('Allow', 'GET, HEAD, POST')])
-    if path not in ('/api/simulate', '/api/trace', '/api/outpatient'):
+    if path not in ('/api/simulate', '/api/trace', '/api/outpatient', '/api/outpatient/report'):
         return _json(start_response, '404 Not Found', {'error': 'Not found'})
 
     # Only a JSON body from the same-origin app is needed. No CORS headers.
@@ -108,7 +109,16 @@ def app(environ, start_response):
         return _json(start_response, '503 Service Unavailable', {'error': 'Simulation engine is busy. Please try again.'}, extra=[('Retry-After', '3')])
     try:
         data = json.loads(environ['wsgi.input'].read(size))
-        result = analyze_outpatient(data) if path == '/api/outpatient' else (calculate(data) if path == '/api/simulate' else calculate_trace(data))
+        if path in ('/api/outpatient', '/api/outpatient/report'):
+            result = analyze_outpatient(data)
+            if path == '/api/outpatient/report':
+                payload = make_report_pdf(result)
+                return _response(
+                    start_response, '200 OK', payload, 'application/pdf', api=True,
+                    extra=[('Content-Disposition', 'attachment; filename="FAILSAFE-Clinic-Report.pdf"')]
+                )
+        else:
+            result = calculate(data) if path == '/api/simulate' else calculate_trace(data)
         return _json(start_response, '200 OK', result)
     except (ValueError, TypeError, UnicodeDecodeError) as exc:
         return _json(start_response, '400 Bad Request', {'error': str(exc)})
